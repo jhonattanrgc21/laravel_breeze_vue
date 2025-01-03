@@ -21,7 +21,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        // Se utiliza para mostrar el formulario de creación de un nuevo post
+        return view('posts.create');
     }
 
     /**
@@ -29,14 +30,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Se utiliza para guardar un nuevo post en la base de datos
+
+       // Se valida que los campos title y content sean requeridos
+        $request->validate([
+            'title' => 'required|min:4',
+            'body' => 'required',
+        ]);
+
+        $post = new Post;
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->save();
+
+        session()->flash('status', 'Post creado correctamente');
+        return to_route('posts.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
+        $post = Post::findOrFail($id);
         return view('posts.show', compact('post'));
     }
 

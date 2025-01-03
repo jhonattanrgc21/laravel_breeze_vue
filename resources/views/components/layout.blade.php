@@ -10,6 +10,14 @@
 
 <body>
     <x-partials.navigation />
+
+    @session('status')
+        <div style="background: green; color: white; padding: 1rem;">
+            {{ $value }}
+        </div>
+    @endsession
+
+
     {{ $slot }}
 
     {{-- si el parametro $content existe, se muestra el aside --}}
