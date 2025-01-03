@@ -2,18 +2,25 @@
 
     <h1>Blog</h1>
 
-    <a href="{{ route('posts.create') }}">Crear Post</a>
+    @auth
+        <a href="{{ route('posts.create') }}">Crear Post</a>
+
+    @endauth
     @foreach ($posts as $post)
         <div style="display: flex; align-items: baseline">
             <h2>
                 <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
-            </h2> &nbsp;
-            <a href="{{ route('posts.edit', $post) }}">Editar</a> &nbsp;
-            <form action="{{ route('posts.destroy', $post) }}" method="post">
-                @csrf.@method('delete')
-                <button type="submit">Eliminar</button>
+            </h2>
+            @auth
+                &nbsp;
+                <a href="{{ route('posts.edit', $post) }}">Editar</a> &nbsp;
+                <form action="{{ route('posts.destroy', $post) }}" method="post">
+                    @csrf.@method('delete')
+                    <button type="submit">Eliminar</button>
 
-            </form>
+                </form>
+
+            @endauth
 
         </div>
     @endforeach
