@@ -5,28 +5,16 @@
             <form @submit.prevent="login" class="space-y-4">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Correo:</label>
-                    <input
-                        type="email"
-                        v-model="email"
-                        id="email"
-                        required
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-700"
-                    />
+                    <input type="email" v-model="email" id="email" required autocomplete="current-email"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-700" />
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
-                    <input
-                        type="password"
-                        v-model="password"
-                        id="password"
-                        required
-                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-700"
-                    />
+                    <input type="password" v-model="password" id="password" required autocomplete="current-password"
+                        class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-700" />
                 </div>
-                <button
-                    type="submit"
-                    class="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
-                >
+                <button type="submit"
+                    class="w-full py-2 px-4 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none">
                     Iniciar Sesión
                 </button>
             </form>
@@ -35,7 +23,7 @@
 </template>
 
 <script>
-import apiClient from '../../api.js';
+import http from '../../core/http/api.js';
 
 export default {
     data() {
@@ -47,7 +35,7 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await apiClient.post('/login', {
+                const response = await http.post('/login', {
                     email: this.email,
                     password: this.password,
                 });
